@@ -18,8 +18,15 @@ public class WebScraper {
 
             for (Element link : links) {
                 String texto = link.text().toLowerCase();
-                if (texto.contains("anexo i") || texto.contains("anexo ii")) {
-                    System.out.println("Link encontrado: " + link.absUrl("href"));
+
+                if (texto.contains("anexo i") && !texto.contains("anexo ii")) {
+                    String pdfUrl = link.absUrl("href");
+                    System.out.println("Baixando Anexo I...");
+                    FileDownloader.downloadFile(pdfUrl, "Anexo_I.pdf");
+                } else if (texto.contains("anexo ii")) {
+                    String pdfUrl = link.absUrl("href");
+                    System.out.println("Baixando Anexo II...");
+                    FileDownloader.downloadFile(pdfUrl, "Anexo_II.pdf");
                 }
             }
 
